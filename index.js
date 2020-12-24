@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Equation = require('equations').default;
-const levels = require("./models/levels.js");
+const levels = require("./models/levels");
 var mongoUrl;
 
 // console.log(Equation.solve('1/3x * (2x^2 + 78x - 77) = y')(5+1))
