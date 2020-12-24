@@ -137,14 +137,13 @@ class DiscordXp {
     if (!user) return false;
 
     if (fetchPosition === true) {
-      const leaderboard = levels.find({
-        guildID: guildId
-      }).sort([['xp', 'descending']]).exec();
+      const leaderboard = await levels.find({ 
+        guildID: guildId 
+      }).sort([['totalXP', 'descending']]).exec();
 
-      user.position = leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1;
+      user.position = leaderboard.findIndex(i => i.guildID === guildID && i.userID === userID) + 1;
     }
 
-    // user.level =
     return user;
   }
 
