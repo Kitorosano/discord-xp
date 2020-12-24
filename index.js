@@ -141,7 +141,7 @@ class DiscordXp {
         guildID: guildId 
       }).sort([['totalXP', 'descending']]).exec();
 
-      user.position = leaderboard.findIndex(i => i.guildID === guildID && i.userID === userID) + 1;
+      user.position = leaderboard.findIndex(i => i.guildID === guildId && i.userID === userId) + 1;
     }
 
     return user;
