@@ -4,7 +4,8 @@
   "description": "A lightweight and easy to use economy framework for discord bots, uses MongoDB.",
   "main": "index.js",
   "dependencies": {
-    "mongoose": "^5.7.1"
+    "mongoose": "^5.7.1",
+    "equations": "^1.3.7"
   },
   "devDependencies": {},
   "repository": {
