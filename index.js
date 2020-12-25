@@ -192,7 +192,7 @@ class DiscordXp {
             const medals = ['🥇', '🥈', '🥉'];
             
             if (this.position < 10) name+=' ';
-            if (tihs.position < 4) name+=` ${medals[this.position -1]}`;
+            if (this.position < 4) name+=` ${medals[this.position -1]}`;
             
             name += (user.username.length > len - 2 ? user.username.slice(0, 18) + '... ': user.username);
 
