@@ -188,16 +188,15 @@ class DiscordXp {
           position: (leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1),
           username(spaces = false, len = 26) {
             if(!spaces) return user.username;
+            let name = (user.username.length > len - 2 ? user.username.slice(0, 18) + '... ': user.username);
+            for(let i = 0; i < len-name.length; i++) name+=' ';
+            
             const medals = ['🥇', '🥈', '🥉'];
             
-            let name = '';
-            if (this.position < 10) name += ' ';
-            if (this.position < 4)  name += `${medals[this.position - 1]}`;
-            
-            name += (user.username.length > len - 2 ? user.username.slice(0, 18) + '... ': user.username);
-
-            for(let i = 0; i < len-name.length; i++) name+=' ';
-            return name;
+            let prename = '';
+            if (this.position < 10) prename += ' ';
+            if (this.position < 4)  prename += `${medals[this.position - 1]}`;
+            return prename + name;
           }
         });
       }
