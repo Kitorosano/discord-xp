@@ -167,9 +167,10 @@ class DiscordXp {
   * @param {string} [client] - Your Discord.Client.
   * @param {array} [leaderboard] - The output from 'fetchLeaderboard' function.
   * @param {boolean} [fetchUsers] - Only shows active users on the server.
+  * @param {number} [spaces] - Number of spaces to separate the name from the exp on a leaderboard msg
   */
 
-  static async computeLeaderboard(client, leaderboard, fetchUsers = true) {
+  static async computeLeaderboard(client, leaderboard, fetchUsers = true, spaces = 22) {
     if (!client) throw new TypeError("A client was not provided.");
     if (!leaderboard) throw new TypeError("A leaderboard id was not provided.");
     if (leaderboard.length < 1) return [];
@@ -186,7 +187,8 @@ class DiscordXp {
           totalXP: key.totalXP,
           level: key.level,
           position: (leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1),
-          username: user.username
+          username: user.username,
+          space: spaces - user.username.length
         });
       }
     } else { //only online
@@ -197,7 +199,8 @@ class DiscordXp {
         totalXP: key.totalXP,
         level: key.level,
         position: (leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1),
-        username: client.guilds.cache.get(key.userID) ? `**${client.guilds.cache.get(key.userID).username}**` : "?"
+        username: client.guilds.cache.get(key.userID) ? `**${client.guilds.cache.get(key.userID).username}**` : "?",
+        space: spaces - key.username.length
       }));
     }
 
