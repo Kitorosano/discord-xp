@@ -190,7 +190,7 @@ class DiscordXp {
           spaces(len = 22) {
             let cadena = '';
 
-            let many = len - user.username.length();
+            let many = len - user.username.length;
             if(many < 0) len += many.abs(); many = 0;
             
             for(many; many < len; many++) cadena+=' ';
