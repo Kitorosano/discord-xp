@@ -195,8 +195,11 @@ class DiscordXp {
             const medals = ['🥇', '🥈', '🥉'];
             
             let prename = '';
-            if (this.position < 10) prename += ' ';
-            if (this.position < 4)  prename += `${medals[this.position - 1]}`;
+            if (this.position < 4) {
+              prename += `${medals[this.position - 1]}`;
+            }else if (this.position < 10) prename += ' ';
+            else prename+=' ';
+
             return prename + name;
           }
         });
