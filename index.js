@@ -186,13 +186,15 @@ class DiscordXp {
           totalXP: key.totalXP,
           level: key.level,
           position: (leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1),
-          username(len = 22) {(user.username.length > len ? user.username.slice(0, 18) + '... ' : user.username)} ,
-          spaces(len = 22) {
-            let many = len - user.username.length;
-            
-            let cadena = '';
-            for(let i = 0; i < many; i++) cadena+=' ';
-            return cadena;
+          username(spaces = false, len = 22) {
+            console.log(user.username);
+            if(!spaces) return user.username;
+            let name = (user.username.length > len ? user.username.slice(0, 18) + '... ': user.username);
+            let many = len - name.length;
+            console.log(`name: ${name} \tmany: ${many}`)
+            for(let i = 0; i < many; i++) name+=' ';
+            console.log(`finished: ${name}`)
+            return name;
           }
         });
       }
