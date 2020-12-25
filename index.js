@@ -167,17 +167,16 @@ class DiscordXp {
   * @param {string} [client] - Your Discord.Client.
   * @param {array} [leaderboard] - The output from 'fetchLeaderboard' function.
   * @param {boolean} [fetchUsers] - Only shows active users on the server.
-  * @param {number} [spaces] - Number of spaces to separate the name from the exp on a leaderboard msg
   */
 
-  static async computeLeaderboard(client, leaderboard, fetchUsers = true, spaces = 22) {
+  static async computeLeaderboard(client, leaderboard, fetchUsers = true) {
     if (!client) throw new TypeError("A client was not provided.");
     if (!leaderboard) throw new TypeError("A leaderboard id was not provided.");
     if (leaderboard.length < 1) return [];
 
     const computedArray = [];
 
-    if (fetchUsers) { //even if offline
+    if (fetchUsers) { //every member even if they're not in the cache
       for (const key of leaderboard) {
         const user = await client.users.fetch(key.userID)
         computedArray.push({
@@ -188,10 +187,18 @@ class DiscordXp {
           level: key.level,
           position: (leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1),
           username: user.username,
-          space: spaces - user.username.length
+          spaces(len = 22) {
+            let cadena = '';
+
+            let many = len - user.username.length();
+            if(many < 0) len += many.abs(); many = 0;
+            
+            for(many; many < len; many++) cadena+=' ';
+            return cadena;
+          }
         });
       }
-    } else { //only online
+    } else { //only members that are store in the cache
       leaderboard.map(key => computedArray.push({
         guildID: key.guildID,
         userID: key.userID,
@@ -200,7 +207,6 @@ class DiscordXp {
         level: key.level,
         position: (leaderboard.findIndex(i => i.guildID === key.guildID && i.userID === key.userID) + 1),
         username: client.guilds.cache.get(key.userID) ? `**${client.guilds.cache.get(key.userID).username}**` : "?",
-        space: spaces - key.username.length
       }));
     }
 
